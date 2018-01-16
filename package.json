@@ -1,0 +1,39 @@
+{
+  "name": "redux-rest-pain",
+  "description": "redux-rest-pain",
+  "version": "0.0.0",
+  "files": [],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:edtoken/info-redux-rest-pain.git"
+  },
+  "keywords": [
+    "redux",
+    "react",
+    "flux",
+    "crud",
+    "redux crud",
+    "redux ajax",
+    "ajax",
+    "normalizr",
+    "redux immutable",
+    "redux normalizr"
+  ],
+  "author": "Eduard Titov <editied@gmail.com>",
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": ""
+    }
+  ],
+  "bugs": {
+    "url": ""
+  },
+  "scripts": {},
+  "peerDependencies": {},
+  "dependencies": {
+    "markdown-to-slides": "^1.0.5"
+  },
+  "devDependencies": {}
+}
