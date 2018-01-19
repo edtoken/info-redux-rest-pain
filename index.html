@@ -192,7 +192,6 @@
     slide += 1
   }
 
-  var xmlhttp = new XMLHttpRequest();
   var source = ""
   var publicUrl = document.location.href.replace(document.location.hash, '');
 
@@ -203,6 +202,7 @@
     (function(url, ind) {
 
       try {
+        var xmlhttp = new XMLHttpRequest();
         xmlhttp.open('GET', './slides/' + url + '?' + new Date().getTime(), false);
         xmlhttp.send();
 
@@ -224,7 +224,7 @@
 
     })(sourceUrls[i], i)
   }
-  
+
   var slideshow = remark.create({
     source: source,
     ratio: '16:9',
