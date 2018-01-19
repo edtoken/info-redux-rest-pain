@@ -204,6 +204,8 @@
       xmlhttp.open('GET', './slides/' + sourceUrls[i] + '?' + new Date().getTime(), false);
       xmlhttp.send();
 
+      console.log('xmlhttp', xmlhttp)
+
       if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
 
         console.log('loaded', sourceUrls[i])
