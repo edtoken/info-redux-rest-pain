@@ -84,85 +84,89 @@
         }
 
         /*blockquote {*/
-            /*border-left: 5px solid #cccccc;*/
-            /*padding-left: 1em;*/
-            /*margin: 1em -1em;*/
-            /*font-style: italic;*/
-            /*color: #999999*/
+        /*border-left: 5px solid #cccccc;*/
+        /*padding-left: 1em;*/
+        /*margin: 1em -1em;*/
+        /*font-style: italic;*/
+        /*color: #999999*/
         /*}*/
 
         /*.remark-slide-number {*/
-            /*display: none*/
+        /*display: none*/
         /*}*/
 
         /*.remark-slide {*/
-            /*display: table*/
+        /*display: table*/
         /*}*/
 
         /*.remark-slide-content {*/
-            /*display: table-cell;*/
-            /*vertical-align: middle;*/
-            /*padding: 0 4em;*/
-            /*font-size: 24px*/
+        /*display: table-cell;*/
+        /*vertical-align: middle;*/
+        /*padding: 0 4em;*/
+        /*font-size: 24px*/
         /*}*/
 
         /*.remark-slide-content h1 {*/
-            /*font-size: 52px;*/
-            /*color: #00989e*/
+        /*font-size: 52px;*/
+        /*color: #00989e*/
         /*}*/
 
         /*.remark-slide-content h2 {*/
-            /*font-size: 42px;*/
-            /*color: #00989e*/
+        /*font-size: 42px;*/
+        /*color: #00989e*/
         /*}*/
 
         /*.remark-slide-content h3 {*/
-            /*font-size: 38px;*/
-            /*color: #00989e*/
+        /*font-size: 38px;*/
+        /*color: #00989e*/
         /*}*/
 
         /*.remark-slide-content h4 {*/
-            /*font-size: 32px;*/
-            /*color: #00989e*/
+        /*font-size: 32px;*/
+        /*color: #00989e*/
         /*}*/
 
         /*.remark-slide-content h5 {*/
-            /*font-size: 28px;*/
-            /*color: #00989e*/
+        /*font-size: 28px;*/
+        /*color: #00989e*/
         /*}*/
 
         /*.remark-slide-content h6 {*/
-            /*font-size: 24px;*/
-            /*color: #00989e*/
+        /*font-size: 24px;*/
+        /*color: #00989e*/
         /*}*/
 
         /*.remark-slide-content > :first-child {*/
-            /*margin-top: 0*/
+        /*margin-top: 0*/
         /*}*/
 
         /*.remark-slide-content > :last-child {*/
-            /*margin-bottom: 0*/
+        /*margin-bottom: 0*/
         /*}*/
 
         /*.remark-code-line {*/
         /*}*/
 
-        .remark-slide-container:nth-child(8) .remark-code{
+        .remark-slide-container:nth-child(8) .remark-code {
             font-size: 70%;
         }
 
-        .remark-slide-container:nth-child(13) .remark-code{
+        .remark-slide-container:nth-child(13) .remark-code {
             font-size: 48%;
         }
+
         .remark-slide-container:nth-child(14) .remark-code {
             font-size: 50%;
         }
+
         .remark-slide-container:nth-child(16) .remark-code {
             font-size: 35%;
         }
+
         .remark-slide-container:nth-child(17) .remark-code {
             font-size: 43%;
         }
+
         .remark-slide-container:nth-child(27) .remark-code {
             font-size: 60%;
         }
@@ -193,18 +197,22 @@
   var publicUrl = document.location.href.replace(document.location.hash, '');
 
   for (var i = 0; i < sourceUrls.length; i++) {
-    xmlhttp.open('GET', publicUrl + 'slides/' + sourceUrls[i], false);
-    xmlhttp.send();
 
-    if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
-      source += xmlhttp.responseText;
+    try {
+      xmlhttp.open('GET', publicUrl + 'slides/' + sourceUrls[i], false);
+      xmlhttp.send();
 
-      if (i + 1 < sourceUrls.length) {
-        source += "\n---\n"
+      if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
+        source += xmlhttp.responseText;
+
+        if (i + 1 < sourceUrls.length) {
+          source += "\n---\n"
+        }
       }
-    } else {
-      // console.log('ignore', sourceUrls[i])
+    } catch (e) {
+      continue
     }
+
   }
 
   var slideshow = remark.create({
