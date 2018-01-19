@@ -199,7 +199,7 @@
   for (var i = 0; i < sourceUrls.length; i++) {
 
     try {
-      xmlhttp.open('GET', publicUrl + 'slides/' + sourceUrls[i], false);
+      xmlhttp.open('GET', './slides/' + sourceUrls[i], false);
       xmlhttp.send();
 
       if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
