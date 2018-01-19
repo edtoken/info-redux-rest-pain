@@ -203,6 +203,8 @@
       xmlhttp.send();
 
       if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
+
+        console.log('loaded', sourceUrls[i])
         source += xmlhttp.responseText;
 
         if (i + 1 < sourceUrls.length) {
