@@ -186,7 +186,7 @@
   var slide = 0
   while (slide < slides) {
     var page = 0
-    
+
     if (slide === 5) {
       pages = 15
     }
@@ -225,8 +225,10 @@
       sourceById[index] = content
     }
 
-    var processValue = (100 / sourceUrls.length * index + 1).toString()
-    processNode.innerHTML = processValue + '%...'
+    setTimeout(function(){
+      var processValue = (100 / sourceUrls.length * index + 1).toString()
+      processNode.innerHTML = processValue + '%...'
+    }, 1);
 
     if (counter === sourceUrls.length) {
       var items = Object.keys(sourceById).map(function (key) {
@@ -248,7 +250,10 @@
 
   for (var i = 0; i < sourceUrls.length; i++) {
 
-    console.log('starting', sourceUrls[i]);
+    setTimeout(function(){
+      var processValue = (100 / sourceUrls.length * i).toString()
+      processNode.innerHTML = processValue + '%...'
+    }, 1);
 
     (function (url, ind) {
       setTimeout(function () {
