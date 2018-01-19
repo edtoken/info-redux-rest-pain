@@ -30,10 +30,14 @@
   "bugs": {
     "url": ""
   },
-  "scripts": {},
+  "scripts": {
+    "preview":"node ./node_modules/static-server/bin/static-server.js -p 9999 -i ./index.html -z ./"
+  },
   "peerDependencies": {},
   "dependencies": {
     "markdown-to-slides": "^1.0.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "static-server": "^3.0.0"
+  }
 }

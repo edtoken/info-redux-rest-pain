@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title>Redux REST Pain</title>
     <meta charset="utf-8">
+    <link rel="icon" href="https://edtoken.github.io/assets/images/favicon.png" type="image/png"/>
     <style>
         @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
         @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
@@ -82,106 +83,136 @@
             font-weight: 500
         }
 
-        blockquote {
-            border-left: 5px solid #cccccc;
-            padding-left: 1em;
-            margin: 1em -1em;
-            font-style: italic;
-            color: #999999
+        /*blockquote {*/
+            /*border-left: 5px solid #cccccc;*/
+            /*padding-left: 1em;*/
+            /*margin: 1em -1em;*/
+            /*font-style: italic;*/
+            /*color: #999999*/
+        /*}*/
+
+        /*.remark-slide-number {*/
+            /*display: none*/
+        /*}*/
+
+        /*.remark-slide {*/
+            /*display: table*/
+        /*}*/
+
+        /*.remark-slide-content {*/
+            /*display: table-cell;*/
+            /*vertical-align: middle;*/
+            /*padding: 0 4em;*/
+            /*font-size: 24px*/
+        /*}*/
+
+        /*.remark-slide-content h1 {*/
+            /*font-size: 52px;*/
+            /*color: #00989e*/
+        /*}*/
+
+        /*.remark-slide-content h2 {*/
+            /*font-size: 42px;*/
+            /*color: #00989e*/
+        /*}*/
+
+        /*.remark-slide-content h3 {*/
+            /*font-size: 38px;*/
+            /*color: #00989e*/
+        /*}*/
+
+        /*.remark-slide-content h4 {*/
+            /*font-size: 32px;*/
+            /*color: #00989e*/
+        /*}*/
+
+        /*.remark-slide-content h5 {*/
+            /*font-size: 28px;*/
+            /*color: #00989e*/
+        /*}*/
+
+        /*.remark-slide-content h6 {*/
+            /*font-size: 24px;*/
+            /*color: #00989e*/
+        /*}*/
+
+        /*.remark-slide-content > :first-child {*/
+            /*margin-top: 0*/
+        /*}*/
+
+        /*.remark-slide-content > :last-child {*/
+            /*margin-bottom: 0*/
+        /*}*/
+
+        /*.remark-code-line {*/
+        /*}*/
+
+        .remark-slide-container:nth-child(8) .remark-code{
+            font-size: 70%;
         }
 
-        .remark-slide-number {
-            display: none
+        .remark-slide-container:nth-child(13) .remark-code{
+            font-size: 48%;
         }
-
-        .remark-slide {
-            display: table
+        .remark-slide-container:nth-child(14) .remark-code {
+            font-size: 50%;
         }
-
-        .remark-slide-content {
-            display: table-cell;
-            vertical-align: middle;
-            padding: 0 4em;
-            font-size: 24px
+        .remark-slide-container:nth-child(16) .remark-code {
+            font-size: 35%;
         }
-
-        .remark-slide-content h1 {
-            font-size: 56px;
-            color: #00989e
+        .remark-slide-container:nth-child(17) .remark-code {
+            font-size: 43%;
         }
-
-        .remark-slide-content h2 {
-            font-size: 48px;
-            color: #00989e
-        }
-
-        .remark-slide-content h3 {
-            font-size: 40px;
-            color: #00989e
-        }
-
-        .remark-slide-content h4 {
-            font-size: 36px;
-            color: #00989e
-        }
-
-        .remark-slide-content h5 {
-            font-size: 30px;
-            color: #00989e
-        }
-
-        .remark-slide-content h6 {
-            font-size: 24px;
-            color: #00989e
-        }
-
-        .remark-slide-content > :first-child {
-            margin-top: 0
-        }
-
-        .remark-slide-content > :last-child {
-            margin-bottom: 0
-        }
-
-        .remark-code-line {
-            white-space: normal;
-            background-color: #000;
-            border: 1px solid #000;
-            color: #fff;
-            padding: 0 1em
+        .remark-slide-container:nth-child(27) .remark-code {
+            font-size: 60%;
         }
 
     </style>
 </head>
 <body>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"> </script>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>
-  var sourceUrls = [
-    '0-1.md',
-    '0-2.md',
-    '1-0.md',
-    '1-1.md',
-    '2-0.md',
-    '2-1.md',
-    '2-2.md',
-  ]
+
+  var slides = 10
+  var pages = 10
+
+  var sourceUrls = []
+
+  var slide = 0
+  while (slide < slides) {
+    var page = 0
+    while (page < pages) {
+      sourceUrls.push([slide, page].join('-') + '.md')
+      page += 1
+    }
+    slide += 1
+  }
 
   var xmlhttp = new XMLHttpRequest();
   var source = ""
+  var publicUrl = document.location.href.replace(document.location.hash, '');
 
   for (var i = 0; i < sourceUrls.length; i++) {
-    xmlhttp.open('GET', './slides/' + sourceUrls[i], false);
+    xmlhttp.open('GET', publicUrl + 'slides/' + sourceUrls[i], false);
     xmlhttp.send();
 
-    source += xmlhttp.responseText;
-    if (i + 1 < sourceUrls.length) {
-      source += "\n---\n"
+    if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
+      source += xmlhttp.responseText;
+
+      if (i + 1 < sourceUrls.length) {
+        source += "\n---\n"
+      }
+    } else {
+      // console.log('ignore', sourceUrls[i])
     }
   }
-  ;
 
   var slideshow = remark.create({
-    source: source
+    source: source,
+    ratio: '16:9',
+    highlightLanguage: 'javascript',
+    highlightStyle: 'monokai',
+    slideNumberFormat: 'Slide %current% of %total%',
   });
 </script>
 </body>
