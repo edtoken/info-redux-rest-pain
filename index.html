@@ -199,28 +199,29 @@
   for (var i = 0; i < sourceUrls.length; i++) {
 
     console.log('starting', sourceUrls[i])
+    (function (url, ind) {
 
-    try {
-      xmlhttp.open('GET', './slides/' + sourceUrls[i] + '?' + new Date().getTime(), false);
-      xmlhttp.send();
+      try {
+        xmlhttp.open('GET', './slides/' + url + '?' + new Date().getTime(), false);
+        xmlhttp.send();
 
-      console.log('xmlhttp', xmlhttp)
+        console.log('xmlhttp', xmlhttp)
 
-      if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
+        if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
 
-        console.log('loaded', sourceUrls[i])
+          console.log('loaded', url)
 
-        source += xmlhttp.responseText;
+          source += xmlhttp.responseText;
 
-        if (i + 1 < sourceUrls.length) {
-          source += "\n---\n"
+          if (ind + 1 < sourceUrls.length) {
+            source += "\n---\n"
+          }
         }
+      } catch (e) {
+        console.log('error', url, e)
       }
-    } catch (e) {
-      console.log('error', sourceUrls[i], e)
-      continue
-    }
 
+    })(sourceUrls[i], i)
   }
 
   console.log('source', source)
