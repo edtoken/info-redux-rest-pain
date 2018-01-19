@@ -198,8 +198,10 @@
 
   for (var i = 0; i < sourceUrls.length; i++) {
 
+    console.log('starting', sourceUrls[i])
+
     try {
-      xmlhttp.open('GET', './slides/' + sourceUrls[i], false);
+      xmlhttp.open('GET', './slides/' + sourceUrls[i] + '?' + new Date().getTime(), false);
       xmlhttp.send();
 
       if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
@@ -213,6 +215,7 @@
         }
       }
     } catch (e) {
+      console.log('error', sourceUrls[i], e)
       continue
     }
 
