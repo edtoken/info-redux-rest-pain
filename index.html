@@ -178,7 +178,7 @@
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>
 
-  var slides = 10
+  var slides = 6
   var pages = 10
 
   var sourceUrls = []
@@ -186,6 +186,10 @@
   var slide = 0
   while (slide < slides) {
     var page = 0
+    
+    if (slide === 5) {
+      pages = 15
+    }
     while (page < pages) {
       sourceUrls.push([slide, page].join('-') + '.md')
       page += 1
