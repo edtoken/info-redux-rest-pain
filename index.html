@@ -174,6 +174,7 @@
     </style>
 </head>
 <body>
+<span style="position: fixed;left:50%;font-size:50px;" id="process"></span>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>
 
@@ -196,12 +197,11 @@
   var source = ""
   var publicUrl = document.location.href.replace(document.location.hash, '');
   var sourceById = {}
+  var processNode = document.getElementById('process')
 
   function loadTextFile(path, cb, index) {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", path, false);
-
-    console.log('rawFile', path)
 
     rawFile.onreadystatechange = function () {
       if (rawFile.readyState === 4) {
@@ -221,10 +221,24 @@
       sourceById[index] = content
     }
 
-    // console.log('callback', index)
+    var processValue = (100 / sourceUrls.length * index + 1).toString()
+    processNode.innerHTML = processValue
 
-    if(counter === sourceUrls.length){
-      console.log('FINAL sourceById', sourceById)
+    if (counter === sourceUrls.length) {
+      var items = Object.keys(sourceById).map(function (key) {
+        return sourceById[key]
+      })
+      items = items.join("\n---\n")
+      source += items
+
+      processNode.style.display = 'none'
+      var slideshow = remark.create({
+        source: source,
+        ratio: '16:9',
+        highlightLanguage: 'javascript',
+        highlightStyle: 'monokai',
+        slideNumberFormat: 'Slide %current% of %total%',
+      });
     }
   }
 
@@ -233,39 +247,13 @@
     console.log('starting', sourceUrls[i]);
 
     (function (url, ind) {
-
-      loadTextFile('./slides/' + url + '?' + new Date().getTime(), callback, ind)
-      // try {
-      //   var xmlhttp = new XMLHttpRequest();
-      //   xmlhttp.open('GET', './slides/' + url + '?' + new Date().getTime(), false);
-      //   xmlhttp.send();
-      //
-      //   console.log('xmlhttp', xmlhttp)
-      //
-      //   if (xmlhttp.status === 200 && xmlhttp.statusText === 'OK') {
-      //
-      //     console.log('loaded', url)
-      //
-      //     source += xmlhttp.responseText;
-      //
-      //     if (ind + 1 < sourceUrls.length) {
-      //       source += "\n---\n"
-      //     }
-      //   }
-      // } catch (e) {
-      //   console.log('error', url)
-      // }
-
+      setTimeout(function () {
+        loadTextFile('./slides/' + url + '?' + new Date().getTime(), callback, ind)
+      }, 1)
     })(sourceUrls[i], i)
   }
 
-  var slideshow = remark.create({
-    source: source,
-    ratio: '16:9',
-    highlightLanguage: 'javascript',
-    highlightStyle: 'monokai',
-    slideNumberFormat: 'Slide %current% of %total%',
-  });
+
 </script>
 </body>
 </html>
