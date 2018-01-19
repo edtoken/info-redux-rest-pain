@@ -250,11 +250,6 @@
 
   for (var i = 0; i < sourceUrls.length; i++) {
 
-    setTimeout(function(){
-      var processValue = (100 / sourceUrls.length * i).toString()
-      processNode.innerHTML = processValue + '%...'
-    }, 1);
-
     (function (url, ind) {
       setTimeout(function () {
         loadTextFile('./slides/' + url + '?' + new Date().getTime(), callback, ind)
