@@ -76,7 +76,7 @@
 
         h1, h2, h3, h4, h5, h6 {
             font-weight: 500;
-            margin: 1em 0 0.5em
+            margin: .5em 0 0.2em
         }
 
         b, strong {
@@ -95,21 +95,21 @@
         /*display: none*/
         /*}*/
 
-        /*.remark-slide {*/
-        /*display: table*/
-        /*}*/
+        .remark-slide {
+            display: table
+        }
 
-        /*.remark-slide-content {*/
-        /*display: table-cell;*/
-        /*vertical-align: middle;*/
-        /*padding: 0 4em;*/
-        /*font-size: 24px*/
-        /*}*/
+        .remark-slide-content {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 0 2em;
+            font-size: 24px
+        }
 
-        /*.remark-slide-content h1 {*/
-        /*font-size: 52px;*/
-        /*color: #00989e*/
-        /*}*/
+        .remark-slide-content h1 {
+            font-size: 52px;
+            color: #00989e
+        }
 
         /*.remark-slide-content h2 {*/
         /*font-size: 42px;*/
@@ -136,39 +136,72 @@
         /*color: #00989e*/
         /*}*/
 
-        /*.remark-slide-content > :first-child {*/
-        /*margin-top: 0*/
-        /*}*/
+        .remark-slide-content > :first-child {
+            margin-top: 0
+        }
 
-        /*.remark-slide-content > :last-child {*/
-        /*margin-bottom: 0*/
-        /*}*/
+        .remark-slide-content > :last-child {
+            margin-bottom: 0
+        }
 
         /*.remark-code-line {*/
         /*}*/
+
+        .remark-slide-container:nth-child(3) p,
+        .remark-slide-container:nth-child(4) p,
+        .remark-slide-container:nth-child(6) p {
+            margin: 0;
+            text-align: center;
+        }
+
+        .remark-slide-container:nth-child(4) img,
+        .remark-slide-container:nth-child(3) img,
+        .remark-slide-container:nth-child(6) img {
+            margin: 0 0 .2em;
+            display: inline-block;
+            vertical-align: top;
+        }
 
         .remark-slide-container:nth-child(8) .remark-code {
             font-size: 70%;
         }
 
         .remark-slide-container:nth-child(13) .remark-code {
-            font-size: 48%;
+            font-size: 42%;
         }
 
         .remark-slide-container:nth-child(14) .remark-code {
-            font-size: 50%;
+            font-size: 45%;
         }
 
         .remark-slide-container:nth-child(16) .remark-code {
-            font-size: 35%;
+            font-size: 30%;
         }
 
         .remark-slide-container:nth-child(17) .remark-code {
-            font-size: 43%;
+            font-size: 37%;
+        }
+
+        .remark-slide-container:nth-child(19) .remark-slide-content p {
+            margin: 0;
+            padding: 0 0 3em 0 ;
+        }
+
+        .remark-slide-container:nth-child(19) .remark-slide-content img {
+            height: 90%;
+            width: auto;
+            display: block;
         }
 
         .remark-slide-container:nth-child(27) .remark-code {
             font-size: 60%;
+        }
+
+        .slide-file {
+            bottom: 12px;
+            opacity: .3;
+            position: absolute;
+            left: 20px;
         }
 
     </style>
@@ -188,7 +221,7 @@
     var page = 0
 
     if (slide === 5) {
-      pages = 15
+      pages = 30
     }
     while (page < pages) {
       sourceUrls.push([slide, page].join('-') + '.md')
@@ -203,14 +236,14 @@
   var sourceById = {}
   var processNode = document.getElementById('process')
 
-  function loadTextFile(path, cb, index) {
+  function loadTextFile(path, cb, index, name) {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", path, false);
 
     rawFile.onreadystatechange = function () {
       if (rawFile.readyState === 4) {
         if (rawFile.status === 200 || rawFile.status === 0) {
-          cb(false, index, rawFile.responseText)
+          cb(false, index, rawFile.responseText, name)
         } else if (rawFile.status === 404) {
           cb('error', index, '')
         }
@@ -219,13 +252,13 @@
     rawFile.send(null);
   }
 
-  function callback(err, index, content) {
+  function callback(err, index, content, name) {
     counter += 1
     if (!err) {
-      sourceById[index] = content
+      sourceById[index] = content + "\r\n" + '<span class="slide-file">' + name + '</span>'
     }
 
-    setTimeout(function(){
+    setTimeout(function () {
       var processValue = (100 / sourceUrls.length * index + 1).toString()
       processNode.innerHTML = processValue + '%...'
     }, 1);
@@ -252,12 +285,13 @@
 
     (function (url, ind) {
       setTimeout(function () {
-        loadTextFile('./slides/' + url + '?' + new Date().getTime(), callback, ind)
+        loadTextFile('./slides/' + url + '?' + new Date().getTime(), callback, ind, url.replace('.md', ''))
       }, 1)
     })(sourceUrls[i], i)
   }
 
 
 </script>
+
 </body>
 </html>
